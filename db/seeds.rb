@@ -96,7 +96,6 @@ end
 
 puts "Updating murderer's weapon!"
 envelope.character.update_attributes!(weapon: nil)
-binding.pry
 envelope.character.update_attributes!(weapon: envelope.weapon)
 
 puts "Assigning weapons to other characters!"
