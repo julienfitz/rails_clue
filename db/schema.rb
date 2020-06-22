@@ -14,12 +14,16 @@ ActiveRecord::Schema.define(version: 2020_06_17_044905) do
 
   create_table "characters", force: :cascade do |t|
     t.string "name"
-    t.integer "envelope_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "envelopes", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "weapon_id"
+    t.integer "room_id"
+    t.datetime "murder_start_time"
+    t.datetime "murder_end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -35,14 +39,12 @@ ActiveRecord::Schema.define(version: 2020_06_17_044905) do
 
   create_table "rooms", force: :cascade do |t|
     t.string "name"
-    t.integer "envelope_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "weapons", force: :cascade do |t|
     t.string "name"
-    t.integer "envelope_id"
     t.integer "character_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -2,9 +2,9 @@ class Character < ApplicationRecord
   has_many :guestbook_entries
   has_many :rooms, through: :guestbook_entries
   has_one :weapon
-  belongs_to :envelope, optional: true
+  has_one :envelope
 
-  def self.default_scope
-    where(envelope: nil)
+  def is_murderer?
+    id == Envelope.last.character_id
   end
 end

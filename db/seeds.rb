@@ -67,32 +67,75 @@ rooms.each do |r|
 end
 
 puts "Creating envelope! SSSSSH... it's a secret!"
+envelope = Envelope.create!(character: characters.sample, weapon: weapons.sample, room: rooms.sample)
+start_time = rand((Time.now - 3.days)..Time.now).to_datetime
+end_time = start_time + 2.hours
 
-envelope = Envelope.create(character: characters.sample, weapon: weapons.sample, room: rooms.sample)
+puts "Creating guestbook entry for MURDER!"
+GuestbookEntry.create!(
+  character: envelope.character,
+  room: envelope.room,
+  time_entered: start_time,
+  time_exited: end_time
+)
 
-puts "Assigning weapons to characters!"
+puts "Adding murder time range to envelope!"
+envelope.update_attributes!(murder_start_time: start_time, murder_end_time: end_time)
+
+puts "Creating more guestbook entries for Murder Room!"
+10.times do
+  start_time = rand((Time.now - 3.days)..Time.now).to_datetime
+  end_time = start_time + 2.hours
+  GuestbookEntry.create!(
+    character: characters.sample,
+    room: envelope.room,
+    time_entered: start_time,
+    time_exited: end_time
+  )
+end
+
+puts "Updating murderer's weapon!"
+envelope.character.update_attributes!(weapon: nil)
+binding.pry
+envelope.character.update_attributes!(weapon: envelope.weapon)
+
+puts "Assigning weapons to other characters!"
 puts "There are #{Weapon.count} weapons to be assigned!"
+
 weapons
-  .filter { |w| w.id != envelope.weapon.id }
+  .filter { |w| w.id != envelope.weapon_id }
   .shuffle
   .each_with_index do |weapon, index|
-    char = characters.filter { |c| c.id != envelope.character.id }[index]
-    if !char.nil?
-      weapon.character = char
-    end
+    weapon.character = characters[index]
     weapon.save!
 end
 
-puts "Assigning rooms to characters!"
+puts "Assigning rooms to characters and creating more guestbook entries!"
 
-rooms
-  .filter { |r| r.id != envelope.room.id }
-  .shuffle
-  .each_with_index do |room, index|
-    char = characters.filter { |c| c.id != envelope.character.id }[index]
-    if !char.nil?
-      GuestbookEntry.create!(character: char, room: room)
-    end
+rooms.filter { |r| r.id != envelope.room.id }.each do
+  10.times do
+    start_time = rand((Time.now - 3.days)..Time.now).to_datetime
+    end_time = start_time + rand(1..3).hours
+    GuestbookEntry.create!(
+      character: characters.sample,
+      room: rooms.sample,
+      time_entered: start_time,
+      time_exited: end_time
+    )
+  end
+end
+
+puts "Making sure all characters have at least one room!"
+
+Character.where(rooms: []).each do |char|
+  start_time = rand((Time.now - 3.days)..Time.now).to_datetime
+  end_time = start_time + rand(1..3).hours
+  GuestbookEntry.create!(
+    character: char,
+    room: rooms.sample,
+    time_entered: start_time,
+    time_exited: end_time
+  )
 end
 
 puts "There are now #{Character.count} characters!"

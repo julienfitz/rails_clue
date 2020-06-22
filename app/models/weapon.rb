@@ -1,8 +1,8 @@
 class Weapon < ApplicationRecord
   belongs_to :character
-  belongs_to :envelope, optional: true
+  has_one :envelope
 
-  def self.default_scope
-    where(envelope: nil)
+  def is_murder_weapon?
+    id == Envelope.last.weapon_id
   end
 end
