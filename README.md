@@ -27,23 +27,23 @@ Most likely, you're setting this up in combination with a talk I'm giving _right
 
 Models:
 
-Character
+_Character_
 - has one Weapon
 - has one Envelope (explained later, read on)
 - have Rooms through GuestbookEntries (GuestbookEntries are a join table between Characters and Rooms)
 - You can call `.is_murderer?` on any Character to see if they're the murderer. This is a method I've written on the Character model, so don't use it until you're ready to check!
 
-Weapon
+_Weapon_
 - belongs to a Character
 - You can call `is_murder_weapon?` on any Weapon. Again, don't use this until you're ready to check!
 
-Room / GuestbookEntries
+_Room / GuestbookEntries_
 - GuestbookEntries are a join table between Characters and Rooms (Characters have Rooms through GuestbookEntries)
 - GuestbookEntries represent logs for when a given character entered and exited a given Room.
 - You guessed it, you can call `is_scene_of_the_crime?` on any Room!
 - GuestbookEntry attributes: `time_entered`, `time_exited`
 
-Envelope
+_Envelope_
 - The database will also have one Envelope. That one Envelope contains the murderer, weapon, and location, so don't look at it until you're done playing and just want to be sure you're right!
 - You can run `Envelope.take.whodunnit` to see who, in fact, dunnit. Probably don't use this until the very, very end when you're just checking to see if your guess is correct!
 - Envelope attributes: `murder_start_time`, `murder_end_time`
