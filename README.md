@@ -1,3 +1,6 @@
+![Rails::Clue characters](app/assets/images/clue_characters.png "Rails::Clue characters")
+
+
 # Rails::Clue
 
 Learn about different ActiveRecord query methods by playing a game of Clue. It's you against the database!
