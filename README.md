@@ -29,6 +29,7 @@ Most likely, you're setting this up in combination with a talk I'm giving _right
 - Characters have Rooms through GuestbookEntries (GuestbookEntries are a join table between Characters and Rooms)
 - GuestbookEntries represent logs for when a given character entered and exited a given Room.
 - The database will also have one Envelope. That one Envelope contains the murderer, weapon, and location, so don't look at it until you're done playing and just want to be sure you're right! You can run `Envelope.take.whodunnit` to see who, in fact, dunnit.
+- The Envelope has two attributes, `murder_start_time` and `murder_end_time`, that you can use to help deduce whodunnit, based on Characters' GuestbookEntry enter/exit times. Just be careful not to accidentally expose yourself to the Envelope's relationships! I recommend accessing these attributes directly (i.e. `Envelope.take.murder_start_time`)
 - You can also call `.is_murderer?` on any Character to see if they're the murderer.
 - Similarly, you can call `is_murder_weapon?` on any Weapon.
 - You guessed it, you can also call `is_scene_of_the_crime?` on any Room!
