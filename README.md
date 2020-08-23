@@ -1,5 +1,6 @@
 ![Rails::Clue characters](https://raw.githubusercontent.com/julienfitz/rails_clue/5a2a8281218388c8fea9961364cf60c25e984fe4/app/assets/images/clue_characters.png "Rails::Clue characters")
 
+[![Build Status](https://travis-ci.com/julienfitz/rails_clue.svg?branch=master)](https://travis-ci.com/julienfitz/rails_clue)
 
 # Rails::Clue
 
